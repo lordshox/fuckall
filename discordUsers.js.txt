@@ -1,0 +1,30 @@
+function fetchDiscordUser(userId, imgElementId, nameElementId) {
+    fetch(`https://discord-web-api.glitch.me/discord/user/${userId}`, {
+        method: "GET",
+        mode: "cors"
+    })
+    .then(responseJson => {
+        if (responseJson.ok) {
+            return responseJson.json();
+        }
+        return Promise.reject(responseJson);
+    })
+    .then(fieldDescribe => {
+        console.log(fieldDescribe.url);
+        console.log(fieldDescribe.username);
+        document.getElementById(imgElementId).src = fieldDescribe.url;
+        document.getElementById(nameElementId).textContent = fieldDescribe.username; // Corrigido de src para textContent
+    })
+    .catch(error => {
+        console.warn("Something went wrong.", error);
+    });
+}
+
+window.onload = function () {
+    fetchDiscordUser("893546062969720892", "marcola", "usernameMarcola");
+    fetchDiscordUser("996933320107638944", "metralha", "usernameMetralha");
+    fetchDiscordUser("781169706244636682", "yuri", "usernameYuri");
+    fetchDiscordUser("781169706244636682", "ecstasy", "usernameEcstasy");
+    fetchDiscordUser("781169706244636682", "tralha", "usernameTralha");
+    fetchDiscordUser("781169706244636682", "zit", "usernameZit");
+};
